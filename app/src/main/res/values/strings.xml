@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Retusaari</string>
+    <string name="button">Touch me!</string>
 </resources>
