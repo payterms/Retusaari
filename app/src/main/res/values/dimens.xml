@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cardview_layout_margin">4dp</dimen>
+    <dimen name="tv_title_layout_marginStart">8dp</dimen>
+    <dimen name="tv_title_layout_marginTop">8dp</dimen>
+    <dimen name="tv_title_layout_marginEnd">8dp</dimen>
+
+    <dimen name="tv_text_layout_margin">8dp</dimen>
+
+</resources>

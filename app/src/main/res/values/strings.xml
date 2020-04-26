@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Retusaari</string>
     <string name="button">Touch me!</string>
+    <string name="tv_title_text">Very important note</string>
+    <string name="tv_text_text">My very important note text with very important information</string>
+    <string name="appTitle">Notes App</string>
 </resources>
