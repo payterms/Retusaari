@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.payts.retusaari.ui.note.NoteActivity
 import ru.payts.retusaari.R
 
 
@@ -22,7 +23,9 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         rv_notes.layoutManager = GridLayoutManager(this, 2)
-        adapter = NotesRVAdapter()
+        adapter = NotesRVAdapter {
+            NoteActivity.start(this, it)
+        }
         rv_notes.adapter = adapter
 
         viewModel.viewState().observe(this, Observer { value ->
