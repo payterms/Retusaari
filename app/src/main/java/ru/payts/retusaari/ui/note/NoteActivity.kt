@@ -3,6 +3,7 @@ package ru.payts.retusaari.ui.note
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
@@ -15,6 +16,8 @@ import ru.payts.retusaari.R
 import ru.payts.retusaari.data.entity.Note
 import java.text.SimpleDateFormat
 import java.util.*
+
+private const val SAVE_DELAY = 2000L
 
 class NoteActivity : AppCompatActivity() {
 
@@ -76,7 +79,7 @@ class NoteActivity : AppCompatActivity() {
                 Note.Color.PINK -> R.color.pink
             }
             //toolbar.setBackgroundColor(resources.getColor(color))
-            toolbar.setBackgroundColor(ContextCompat.getColor(applicationContext,color))
+            toolbar.setBackgroundColor(ContextCompat.getColor(applicationContext, color))
 
         }
 
@@ -106,4 +109,30 @@ class NoteActivity : AppCompatActivity() {
         }
         else -> super.onOptionsItemSelected(item)
     }
+
+//    private fun createNewNote(): Note = Note(
+//        UUID.randomUUID().toString(),
+//        et_title.text.toString(),
+//        et_body.text.toString()
+//    )
+//
+//    private fun triggerSaveNote() {
+//        if (et_title.text!!.length < 3) {
+//            return
+//        }
+//
+//        Handler().postDelayed(object : Runnable {
+//            override fun run() {
+//                note = note?.copy(
+//                    title = et_title.text.toString(),
+//                    text = et_body.text.toString(),
+//                    lastChanged = Date()
+//                )
+//                    ?: createNewNote()
+//
+//                if (note != null) viewModel.save(note!!)
+//            }
+//
+//        }, SAVE_DELAY)
+//    }
 }

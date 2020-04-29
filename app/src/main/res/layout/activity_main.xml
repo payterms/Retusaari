@@ -36,6 +36,7 @@
         android:src="@drawable/ic_add_white_24dp"
         app:fabSize="normal"
         app:layout_anchor="@id/rv_notes"
-        app:layout_anchorGravity="end|bottom" />
+        app:layout_anchorGravity="end|bottom"
+        app:layout_behavior=".ui.common.FABBehavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
