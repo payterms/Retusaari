@@ -2,39 +2,40 @@ package ru.payts.retusaari.ui.note
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.activity_note.*
 import ru.payts.retusaari.R
 import ru.payts.retusaari.data.entity.Note
+
+import ru.payts.retusaari.ui.base.BaseActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
-private const val SAVE_DELAY = 2000L
-
-class NoteActivity : AppCompatActivity() {
+class NoteActivity : BaseActivity<Note?, NoteViewState>() {
 
     companion object {
 
         private const val EXTRA_NOTE = "extra.NOTE"
         private const val DATE_FORMAT = "dd.MM.yy HH:mm"
 
-        fun start(context: Context, note: Note?) = Intent(context, NoteActivity::class.java).run {
-            putExtra(EXTRA_NOTE, note)
+        fun start(context: Context, noteId: String? = null) = Intent(context, NoteActivity::class.java).run {
+            putExtra(EXTRA_NOTE, noteId)
             context.startActivity(this)
         }
     }
 
-
     private var note: Note? = null
-    lateinit var viewModel: NoteViewModel
+    override val layoutRes: Int = R.layout.activity_note
+
+    override val viewModel: NoteViewModel by lazy {
+        ViewModelProvider(this).get(NoteViewModel::class.java)
+    }
 
     val textChangeListener = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
@@ -47,20 +48,28 @@ class NoteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_note)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        note = intent.getParcelableExtra(EXTRA_NOTE)
+        val noteId = intent.getStringExtra(EXTRA_NOTE)
+        noteId?.let {
+            viewModel.loadNote(it)
+        } ?: let {
+            supportActionBar?.title = getString(R.string.new_note_title)
+        }
 
-        viewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
 
+    }
+
+    override fun renderData(data: Note?) {
+        this.note = data
         supportActionBar?.title = note?.let {
             SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(it.lastChanged)
         } ?: getString(R.string.new_note_title)
 
         initView()
     }
+
 
     private fun initView() {
         et_title.removeTextChangedListener(textChangeListener)
@@ -78,9 +87,9 @@ class NoteActivity : AppCompatActivity() {
                 Note.Color.VIOLET -> R.color.violet
                 Note.Color.PINK -> R.color.pink
             }
-            //toolbar.setBackgroundColor(resources.getColor(color))
-            toolbar.setBackgroundColor(ContextCompat.getColor(applicationContext, color))
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                toolbar.setBackgroundColor(resources.getColor(color, null))
+            }
         }
 
         et_title.addTextChangedListener(textChangeListener)
@@ -110,29 +119,5 @@ class NoteActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
-//    private fun createNewNote(): Note = Note(
-//        UUID.randomUUID().toString(),
-//        et_title.text.toString(),
-//        et_body.text.toString()
-//    )
-//
-//    private fun triggerSaveNote() {
-//        if (et_title.text!!.length < 3) {
-//            return
-//        }
-//
-//        Handler().postDelayed(object : Runnable {
-//            override fun run() {
-//                note = note?.copy(
-//                    title = et_title.text.toString(),
-//                    text = et_body.text.toString(),
-//                    lastChanged = Date()
-//                )
-//                    ?: createNewNote()
-//
-//                if (note != null) viewModel.save(note!!)
-//            }
-//
-//        }, SAVE_DELAY)
-//    }
+
 }
