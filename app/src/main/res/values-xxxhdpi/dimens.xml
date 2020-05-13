@@ -1,0 +1,9 @@
+<resources>
+	<dimen name="note_activity_padding">48dp</dimen>
+	<dimen name="tv_text_layout_margin">24dp</dimen>
+	<dimen name="tv_title_layout_marginTop">24dp</dimen>
+	<dimen name="cardview_layout_margin">12dp</dimen>
+	<dimen name="note_activity_layout_marginTop">48dp</dimen>
+	<dimen name="tv_title_layout_marginEnd">24dp</dimen>
+	<dimen name="tv_title_layout_marginStart">24dp</dimen>
+</resources>

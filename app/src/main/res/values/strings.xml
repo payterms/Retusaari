@@ -3,7 +3,7 @@
     <string name="button">Touch me!</string>
     <string name="tv_title_text">Very important note</string>
     <string name="tv_text_text">My very important note text with very important information</string>
-    <string name="appTitle">Notes App</string>
+    <string name="appTitle">Retusaari</string>
     <string name="note_hint_text">Note text</string>
     <string name="note_autofillhint">Some Text Here</string>
     <string name="note_header_name">Header</string>

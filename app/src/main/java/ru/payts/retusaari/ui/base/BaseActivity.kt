@@ -51,7 +51,7 @@ abstract class BaseActivity<T, S : BaseViewState<T>> : AppCompatActivity() {
 
         val intent = AuthUI.getInstance()
             .createSignInIntentBuilder()
-            .setLogo(R.drawable.ic_launcher_foreground)
+            .setLogo(R.drawable.ic_brain_foreground)
             .setTheme(R.style.LoginStyle)
             .setAvailableProviders(providers)
             .build()
