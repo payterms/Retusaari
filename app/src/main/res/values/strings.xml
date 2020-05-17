@@ -3,9 +3,14 @@
     <string name="button">Touch me!</string>
     <string name="tv_title_text">Very important note</string>
     <string name="tv_text_text">My very important note text with very important information</string>
-    <string name="appTitle">Notes App</string>
+    <string name="appTitle">Retusaari</string>
     <string name="note_hint_text">Note text</string>
     <string name="note_autofillhint">Some Text Here</string>
     <string name="note_header_name">Header</string>
     <string name="new_note_title">New note</string>
+    <string name="main_logout">Logout</string>
+    <string name="main_logout_title">Logout</string>
+    <string name="main_logout_message">Are you sure?</string>
+    <string name="main_logout_ok">It seems Yes</string>
+    <string name="main_logout_cancel">Probably No</string>
 </resources>
