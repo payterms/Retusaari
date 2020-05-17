@@ -10,14 +10,12 @@ import ru.payts.retusaari.data.errors.NoAuthException
 import ru.payts.retusaari.data.model.NoteResult
 import timber.log.Timber
 
-class FirestoreProvider : RemoteDataProvider {
+class FirestoreProvider(private val firebaseAuth: FirebaseAuth, private val store: FirebaseFirestore) : RemoteDataProvider {
 
     companion object {
         private const val NOTES_COLLECTION = "notes"
         private const val USERS_COLLECTION = "users"
     }
-
-    private val store = FirebaseFirestore.getInstance()
 
     private val currentUser
         get() = FirebaseAuth.getInstance().currentUser
@@ -32,47 +30,48 @@ class FirestoreProvider : RemoteDataProvider {
         store.collection(USERS_COLLECTION).document(it.uid).collection(NOTES_COLLECTION)
     } ?: throw NoAuthException()
 
-    override fun saveNote(note: Note): LiveData<NoteResult> {
-        val result = MutableLiveData<NoteResult>()
+    override fun saveNote(note: Note): LiveData<NoteResult> = MutableLiveData<NoteResult>().apply {
         getUserNotesCollection().document(note.id)
             .set(note).addOnSuccessListener {
                 Timber.d("Note $note is saved")
-                result.value = NoteResult.Success(note)
+                value = NoteResult.Success(note)
             }.addOnFailureListener {
                 Timber.e("Error saving note $note, message : ${it.message} ")
-                result.value = NoteResult.Error(it)
+                value = NoteResult.Error(it)
             }
-
-        return result
     }
 
-    override fun getNoteById(id: String): LiveData<NoteResult> {
-        val result = MutableLiveData<NoteResult>()
+    override fun getNoteById(id: String): LiveData<NoteResult> = MutableLiveData<NoteResult>().apply {
         getUserNotesCollection().document(id)
             .get().addOnSuccessListener { snapshot ->
-                result.value = NoteResult.Success(snapshot.toObject(Note::class.java))
+                value = NoteResult.Success(snapshot.toObject(Note::class.java))
             }.addOnFailureListener {
-                result.value = NoteResult.Error(it)
+                value = NoteResult.Error(it)
             }
-        return result
     }
 
-    override fun subscribeToAllNotes(): LiveData<NoteResult> {
-        val result = MutableLiveData<NoteResult>()
+    override fun subscribeToAllNotes(): LiveData<NoteResult> = MutableLiveData<NoteResult>().apply {
         getUserNotesCollection().addSnapshotListener { querySnapshot, e ->
             e?.let {
-                result.value = NoteResult.Error(e)
+                value = NoteResult.Error(e)
             } ?: let {
                 querySnapshot?.let {
                     val notes = querySnapshot.map {
                         it.toObject(Note::class.java)
                     }
-                    result.value = NoteResult.Success(notes)
+                    value = NoteResult.Success(notes)
                 }
             }
         }
-        return result
     }
 
+    override fun deleteNote(noteId: String): LiveData<NoteResult> = MutableLiveData<NoteResult>().apply {
+        getUserNotesCollection().document(noteId).delete()
+            .addOnSuccessListener {
+                value = NoteResult.Success(null)
+            }.addOnFailureListener {
+                value = NoteResult.Error(it)
+            }
+    }
 
 }

@@ -13,4 +13,11 @@
     <string name="main_logout_message">Are you sure?</string>
     <string name="main_logout_ok">It seems Yes</string>
     <string name="main_logout_cancel">Probably No</string>
+    <string name="note_change_color">Color</string>
+    <string name="note_delete">Delete</string>
+    <string name="note_delete_message">Are you sure you want to delete all memories?</string>
+    <string name="note_delete_cancel">No</string>
+    <string name="note_delete_ok">Yes</string>
+
+
 </resources>

@@ -6,9 +6,9 @@ import ru.payts.retusaari.data.entity.Note
 import ru.payts.retusaari.data.model.NoteResult
 import ru.payts.retusaari.ui.base.BaseViewModel
 
-class MainViewModel : BaseViewModel<List<Note>?, MainViewState>() {
+class MainViewModel(val notesRepository: NotesRepository) : BaseViewModel<List<Note>?, MainViewState>() {
 
-    private val repositoryNotes = NotesRepository.getNotes()
+    private val repositoryNotes = notesRepository.getNotes()
 
     private val notesObserver = object : Observer<NoteResult> {
         override fun onChanged(t: NoteResult?) {

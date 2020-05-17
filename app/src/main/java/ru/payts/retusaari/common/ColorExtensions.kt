@@ -6,7 +6,10 @@ import ru.payts.retusaari.R
 import ru.payts.retusaari.data.entity.Note
 
 fun Note.Color.getColorInt(context: Context) = ContextCompat.getColor(
-    context, when (this) {
+    context, getColorRes()
+)
+
+fun Note.Color.getColorRes(): Int = when (this) {
         Note.Color.WHITE -> R.color.white
         Note.Color.YELLOW -> R.color.yellow
         Note.Color.GREEN -> R.color.green
@@ -15,4 +18,3 @@ fun Note.Color.getColorInt(context: Context) = ContextCompat.getColor(
         Note.Color.VIOLET -> R.color.violet
         Note.Color.PINK -> R.color.pink
     }
-)

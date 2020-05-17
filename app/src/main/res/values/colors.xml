@@ -10,6 +10,7 @@
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorSplash">#111737</color>
 
+    <color name="text_secondary">#66000000</color>
 
     <color name="white">#F5F5F5</color>
     <color name="yellow">#FFF59D</color>

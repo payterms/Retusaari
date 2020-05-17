@@ -6,15 +6,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_main.*
-
+import org.koin.android.viewmodel.ext.android.viewModel
+import ru.payts.retusaari.R
 import ru.payts.retusaari.data.entity.Note
 import ru.payts.retusaari.ui.base.BaseActivity
 import ru.payts.retusaari.ui.note.NoteActivity
-import ru.payts.retusaari.R
 import ru.payts.retusaari.ui.splash.SplashActivity
 
 class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
@@ -25,10 +24,7 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
         }
     }
 
-    override val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
-
+    override val model: MainViewModel by viewModel()
     override val layoutRes: Int = R.layout.activity_main
     lateinit var adapter: NotesRVAdapter
 
@@ -54,7 +50,8 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean = MenuInflater(this).inflate(R.menu.main, menu).let { true }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean =
+        MenuInflater(this).inflate(R.menu.main, menu).let { true }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
@@ -63,14 +60,13 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
     }
 
     fun showLogoutDialog() {
-        supportFragmentManager.findFragmentByTag(LogoutDialog.TAG) ?:
-                LogoutDialog.newInstance {
-                    AuthUI.getInstance()
-                        .signOut(this)
-                        .addOnCompleteListener {
-                            startActivity(Intent(this, SplashActivity::class.java))
-                            finish()
-                        }
-                }.show(supportFragmentManager, LogoutDialog.TAG)
+        supportFragmentManager.findFragmentByTag(LogoutDialog.TAG) ?: LogoutDialog.newInstance {
+            AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener {
+                    startActivity(Intent(this, SplashActivity::class.java))
+                    finish()
+                }
+        }.show(supportFragmentManager, LogoutDialog.TAG)
     }
 }
