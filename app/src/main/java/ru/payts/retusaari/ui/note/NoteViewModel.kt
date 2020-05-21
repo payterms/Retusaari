@@ -1,5 +1,6 @@
 package ru.payts.retusaari.ui.note
 
+import androidx.annotation.VisibleForTesting
 import ru.payts.retusaari.data.NotesRepository
 import ru.payts.retusaari.data.entity.Note
 import ru.payts.retusaari.data.model.NoteResult
@@ -37,8 +38,8 @@ class NoteViewModel(val notesRepository: NotesRepository) : BaseViewModel<NoteVi
             }
         }
     }
-
-    override fun onCleared() {
+    @VisibleForTesting
+    public override fun onCleared() {
         pendingNote?.let {
             notesRepository.saveNote(it)
         }

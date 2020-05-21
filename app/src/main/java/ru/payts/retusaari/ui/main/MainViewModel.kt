@@ -1,12 +1,14 @@
 package ru.payts.retusaari.ui.main
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Observer
 import ru.payts.retusaari.data.NotesRepository
 import ru.payts.retusaari.data.entity.Note
 import ru.payts.retusaari.data.model.NoteResult
 import ru.payts.retusaari.ui.base.BaseViewModel
 
-class MainViewModel(val notesRepository: NotesRepository) : BaseViewModel<List<Note>?, MainViewState>() {
+class MainViewModel(val notesRepository: NotesRepository) :
+    BaseViewModel<List<Note>?, MainViewState>() {
 
     private val repositoryNotes = notesRepository.getNotes()
 
@@ -29,8 +31,8 @@ class MainViewModel(val notesRepository: NotesRepository) : BaseViewModel<List<N
         repositoryNotes.observeForever(notesObserver)
     }
 
-
-    override fun onCleared() {
+    @VisibleForTesting
+    public override fun onCleared() {
         super.onCleared()
         repositoryNotes.removeObserver(notesObserver)
     }
