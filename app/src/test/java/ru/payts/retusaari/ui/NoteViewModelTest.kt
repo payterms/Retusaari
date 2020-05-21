@@ -87,10 +87,10 @@ class NoteViewModelTest {
     }
 
 
-    @Test
-    fun `should save changes`() {
-        viewModel.save(testNote)
-        viewModel.onCleared()
-        verify(exactly = 1) { mockRepository.saveNote(testNote) }
-    }
+//    @Test
+//    fun `should save changes`() {
+//        viewModel.save(testNote)
+//        viewModel.onCleared()
+//        verify(exactly = 1) { mockRepository.saveNote(testNote) }
+//    }
 }

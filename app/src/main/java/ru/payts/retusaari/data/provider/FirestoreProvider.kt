@@ -67,7 +67,7 @@ class FirestoreProvider(private val firebaseAuth: FirebaseAuth, private val stor
                     value = NoteResult.Error(e)
                 } ?: let {
                     querySnapshot?.let {
-                        val notes = querySnapshot.map {
+                        val notes = querySnapshot.documents.map {
                             it.toObject(Note::class.java)
                         }
                         value = NoteResult.Success(notes)

@@ -42,7 +42,7 @@ class FireStoreProviderTest {
 
     private val testNotes = listOf(Note("1"), Note("2"), Note(""))
 
-    private val provider = FirestoreProvider(mockAuth, mockDb)
+    private val provider:FirestoreProvider  = FirestoreProvider(mockAuth, mockDb)
 
 
     @Before
