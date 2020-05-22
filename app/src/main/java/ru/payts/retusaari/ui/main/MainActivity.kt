@@ -16,7 +16,7 @@ import ru.payts.retusaari.ui.base.BaseActivity
 import ru.payts.retusaari.ui.note.NoteActivity
 import ru.payts.retusaari.ui.splash.SplashActivity
 
-class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
+class MainActivity : BaseActivity<List<Note>?>() {
 
     companion object {
         fun start(context: Context) = Intent(context, MainActivity::class.java).run {

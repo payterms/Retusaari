@@ -118,7 +118,6 @@ class FireStoreProviderTest {
         provider.subscribeToAllNotes().observeForever {
             result = (it as? NoteResult.Error)?.error
         }
-
         slot.captured.onEvent(null, mockException)
         assertEquals(result, mockException)
     }

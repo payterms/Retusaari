@@ -18,7 +18,7 @@ import ru.payts.retusaari.data.entity.Note
 import ru.payts.retusaari.ui.base.BaseActivity
 import java.util.*
 
-class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
+class NoteActivity : BaseActivity<NoteData>() {
 
     companion object {
 
@@ -60,7 +60,7 @@ class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
 
     }
 
-    override fun renderData(data: NoteViewState.Data) {
+    override fun renderData(data: NoteData) {
         if (data.isDeleted) finish()
         this.note = data.note
         initView()
@@ -122,10 +122,10 @@ class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
     fun deleteNote() {
         AlertDialog.Builder(this)
             .setMessage(R.string.note_delete_message)
-            .setNegativeButton(R.string.note_delete_cancel) { dialog, which ->
+            .setNegativeButton(R.string.note_delete_cancel) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setPositiveButton(R.string.note_delete_ok) { dialog, which ->
+            .setPositiveButton(R.string.note_delete_ok) { _, _ ->
                 model.deleteNote()
             }
             .show()

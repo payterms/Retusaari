@@ -5,7 +5,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import ru.payts.retusaari.ui.base.BaseActivity
 import ru.payts.retusaari.ui.main.MainActivity
 
-class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
+class SplashActivity : BaseActivity<Boolean?>() {
 
     override val model: SplashViewModel by viewModel()
     override val layoutRes = null

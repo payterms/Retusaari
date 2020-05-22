@@ -18,10 +18,10 @@ class LogoutDialog(val onLogout: () -> Unit) : DialogFragment() {
         return AlertDialog.Builder(context)
             .setTitle(getString(R.string.main_logout_title))
             .setMessage(getString(R.string.main_logout_message))
-            .setPositiveButton(R.string.main_logout_ok) { dialog, which ->
+            .setPositiveButton(R.string.main_logout_ok) { _, _ ->
                 onLogout()
             }
-            .setNegativeButton(R.string.main_logout_cancel) { dialog, which ->
+            .setNegativeButton(R.string.main_logout_cancel) { _, _ ->
                 dismiss()
             }
             .create()
